@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/AuctionSystemMCR" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/LLD_Practice_Solutions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PaymentGatewayMCR" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/RestaurantManagementSystemMCR" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lld-restaurant-management-system/restaurant-management-system" vcs="Git" />
+  </component>
+</project>

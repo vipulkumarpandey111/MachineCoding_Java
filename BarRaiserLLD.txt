@@ -1,0 +1,193 @@
+Design class diagrams, API, Entities, and design patterns for an order management system. Users should be able to CRUD orders and can see the cart.
+
+User
+- string UserId
+- string Name
+- string Email          // or List<string> Emails if needed
+- string Mobile
+- string Password       // if applicable
+- DateTime CreatedAt
+- DateTime UpdatedAt
+Product
+- string ProductId
+- string Name
+- string Description
+- decimal Price       // Using decimal for currency
+- ProductCategory Category  // Enum, or string if preferable
+- int StockQuantity   // Maintain inventory details if needed
+Cart
+- string CartId
+- string UserId (FK)
+- decimal TotalAmount
+- List<CartItem> Items   // Not stored directly in the DB, but represented via a join table
+CartItem
+- string CartItemId
+- string CartId (FK)
+- string ProductId (FK)
+- int Quantity
+- decimal Subtotal       // Calculated: Quantity * Product.Price
+Order
+- string OrderId
+- string UserId (FK)
+- decimal TotalAmount
+- string OrderNotes       // previously "desc"
+- string Address
+- DateTime OrderTime
+- OrderStatus Status      // Enum for different states: Pending, Shipped, Delivered, etc.
+OrderItem
+- string OrderItemId
+- string OrderId (FK)
+- string ProductId (FK)
+- int Quantity
+- decimal UnitPrice
+ProductCategory
+- Electronics, Clothing, Home, etc.
+
+APIs (response body, request body, status codes)
+-BaseUrl : {ordermanagementsystems/api/v1}
+-Read Requests - Method : GET
+	-BaseUrl/users/getuser?userId="userId"
+		-ResponseBody
+		{
+			"status" : 202,
+			"id" : 1,
+			"name" : "xyz",
+			"mobile" : "123456789",
+			"email" : "xyz@gmail.com"
+		}
+		
+	-BaseUrl/users/removeuser?userid="userId"
+		-ResponseBody
+		{
+			"status" : 202,
+			"message" : "User removed successfully!"
+		}
+		
+	-BaseUrl/products/getProducts?category="category"
+		-ResponseBody
+		{
+			"status" : 202,
+			"products" : [{"id", "name", "desc", "price", "cat", "qty"}, {}, {}
+			]
+		}
+		
+	-BaseUrl/carts?userId="userId"
+		-ResponseBody
+		{
+			"status" : 202,
+			"products" : [{"id", "name", "desc", "price", "cat", "qty"}, {}, {}
+			],
+			"totalAmount" : 1234
+		}
+	
+	-BaseUrl/order?userId="userId"
+		-ResponseBody
+		{
+			"status" : 202,
+			"products" : [{"id", "name", "desc", "price", "cat", "qty"}, {}, {}
+			],
+			"totalAmount" : 1234,
+			"address" : "xyz",
+			"ModeOfPayment" : "abc",
+			"time" : "12:12:12"
+		}
+		
+-WriteRequests - Method : POST
+	-BaseUrl/users/createuser
+	-ReqBody 
+	{
+		"id", "name", "email"
+	}
+	-ResBody
+	{
+		"status" : 202,
+		"message" : "User Created Succesfully!"
+	}
+	
+	-BaseUrl/cart/addtocart
+	-BaseUrl/orders/createorder
+	-BaseUrl/product/createproduct
+	
+
+	
+
+CLASS DIAGRAM
+-Entities
+	-order
+		-id
+		-userId
+		-List<Product>
+		-totalAmount
+		-address
+		-time
+	-user
+		-id
+		-List<order>
+		-cartId
+		-name
+		-mobile
+		-email
+		-password
+	-Cart
+		-Cartid
+		-UserId
+		-List<product>
+		-totalAmount
+		
+		-AddToProducts(productId);
+	-interface Iproduct (Factory Design Pattern)
+		-id
+		-name
+		-description
+		-price
+		-Product Category
+		-qty
+	-enum ProductCategory
+-Managers
+	-ProductManager(Singleton pattern) (Strategy Pattern for filtering products)
+		-Map<int, Product> products;
+		
+		-CreateProduct(id, name, desc, price, category)
+		-ModifyProduct(id)
+		-RemoveProduct(id)
+		-GetProduct()
+		-GetProduct(ProductCategory category)
+	-UserManager
+		-Map<int, User> users;
+		
+		-CreateUser()
+		-UpdateUserDetails()
+		-RemoveUser()
+	-CartManager
+		-Map<int, Cart> carts;
+		-UserManager userManager
+	
+		-AddToCart(userId, product)
+		-RemoveFromCart(userId, product)
+		-GetCart(userId)
+	
+	-OrderManager
+		-Map<int, Order> orders
+		-PaymentManager paymentManager
+		
+		-PlaceOrder(cart); => paymentManager.MakePayments(PaymentMode)
+		-UpdateOrder(orderId);
+		-GetMyOrders(userId);
+	
+	-PaymentManager (Strategy pattern)
+		-MakePayment Option(PaymentMode)
+			-calculatesAmount + Additional Charges
+			-GeneratesBill
+
+-OrderManagementSystem
+	- UserManager userManager;
+	- ProductsManager productsManager;
+	- CartManager cartManager;
+	- OrderManager orderManager
+	
+	-userManager.AddUser();
+	-productsManager.GetProducts(category);
+	-cartManager.AddToCart(productId, userId)
+	-cartManager.GetCart(userId);
+	-orderManager.GetAmount(userId)
+	-orderManager.PlaceOrder(Cart cart)	

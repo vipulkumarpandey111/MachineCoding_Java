@@ -1,0 +1,24 @@
+https://www.linkedin.com/pulse/what-how-machine-coding-interview-rounds-banty-kumar/
+
+Keep in Mind during Implementation:
+- Scalability (Segregation of folders i.e. Models, Interfaces, Managers, DataRepositories etc.)
+- User Input and Command menu based input
+- Try to create multiple interfaces, helper classes and enum classes.
+- Incorporate Design patterns
+- Incorporate OOPS and SOLID
+- Choose Hybrid Approach for implementing working solutions faster.
+- Handle concurrency and multithreading using locks, static classes and functions etc.
+- Exception Handling (Custom exception classes if time permits)
+- Unit Testing (If Time permits)
+
+Hybrid Approach
+	-Step 1: Sketch the High-Level Flow:
+		Outline your main function and determine key interactions (like transaction creation, bank routing, etc.).
+	-Step 2: Rapid Prototyping of Core Methods:
+		Implement dummy methods for managers/controllers that return hardcoded or minimal test data. This gives you a working end-to-end flow.
+	-Step 3: Implement Models:
+		Once the flow is set up, fill in the actual logic in your models (Bank, Client, Transaction) and gradually replace dummy methods.
+	-Step 4: Refine Managers and Controllers:
+		Replace placeholder implementations with robust, well-tested code (including concurrency handling, error checking, etc.).
+	-Step 5: Test & Integrate:
+		Continuously run integration tests by using the main function to ensure everything works as expected.

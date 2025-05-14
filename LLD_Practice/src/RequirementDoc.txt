@@ -1,0 +1,29 @@
+Functional Req:
+- users register
+- load money in wallet > 0
+    -PaymentModes
+     -DebitCard
+     -CreditCard
+     -UPI
+-wallet to wallet money transfer
+-fetch acoount balance
+-transaction history
+ -sort based on type
+ -sort based on date time
+ -filer based on sent/received amount
+
+ Bonus : The transactions will be eligible for cashback if they meet their respective criteria. Let's say
+          criteria can be, based on “after each 5 transactions” or “With 0.5 probability for each transaction”
+          ', provide X amount as cashback and added to the user's wallet.
+
+
+ ● registerUser()-Registerusertousewallet
+ ● topUpWallet()-Addmoneytothewallet foruserswithanyof theresources.
+ ● fetchBalance()-Fetchbalanceavailableinthewallet foruser
+ ● sendMoney()-Sendmoneytotheuser.Eachmoneytransferwillbeconsideredasatransaction.
+ ● getTransactions(filter,sorter)-fetchestransactionshistorybasedonfilterandsortingcriteria
+ ● getCashback()-Get totalcashbackamount foreligibletransactions
+
+ Entities : user, wallet, Transaction
+ Services : userservice, wallet service, transaction service, cashback service
+ Repos : users, transactions, wallets
